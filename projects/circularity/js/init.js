@@ -18,16 +18,23 @@ var init = function (window) {
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM SETUP ////////////////////////////
         ////////////////////////////////////////////////////////////
-        
-        // TODO 1 : Declare and initialize our variables
 
+        // TODO 1 : Declare and initialize our variables
+        var circle;
+        var circles = [];
 
         // TODO 2 : Create a function that draws a circle 
-        
+        function drawCricle() {
+        circle = draw.randomCircleInArea(canvas, true, true, '#999', 2);
+        physikz.addRandomVelocity(circle, canvas, 20, 20);
+        view.addChild(circle);
+        circles.push(circle);
+        }
 
         // TODO 3 / 7 : Call the drawCircle() function 
-
-
+        for (var i = 0; i <= 100; i++) {
+            drawCircle();
+        }
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM LOGIC ////////////////////////////
         ////////////////////////////////////////////////////////////
@@ -39,13 +46,17 @@ var init = function (window) {
         */
         function update() {
             // TODO 4 : Update the circle's position //
-
-            
+           
             // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
-           
-
+    
             // TODO 9 : Iterate over the array
-           
+            for (var i = 0; i < circles.length; i++) {
+                var eachValue = circles[i];
+                physikz.updatePosition(eachValue);
+                game.checkCirclePosition(eachValue);
+                
+                // code to repeat using eachValue
+             }
             
         }
     
@@ -60,11 +71,16 @@ var init = function (window) {
             if ( circle.x > canvas.width ) {
                 circle.x = 0;
             }
-            
+            if (circle.x < 0) {
+                circle.x = canvas.width;
+            }
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
-            
-
-
+            if (circle.y > canvas.height) {
+                circle.y = 0;
+            } 
+            if (circle.y < 0) {
+                circle.y = canvas.height;
+            }
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
         
